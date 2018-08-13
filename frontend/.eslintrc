@@ -54,5 +54,12 @@
     "globals": {},
     "parserOptions": {
         "sourceType": "module"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
+        }
     }
 }
