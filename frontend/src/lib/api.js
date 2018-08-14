@@ -1,7 +1,8 @@
 import 'whatwg-fetch';
 import 'formdata-polyfill';
 
-export const ROUTE_AUTHENTICATE = '/authenticate';
+export const ROUTE_SIGN_IN = '/sign-in';
+export const ROUTE_SIGN_UP = '/sign-up';
 
 export class NetworkError extends Error {}
 
