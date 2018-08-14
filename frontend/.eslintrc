@@ -1,6 +1,6 @@
 {
     "rules": {
-        "arrow-parens": ["error", "as-needed"],
+        "arrow-parens": ["error", "always"],
         "class-methods-use-this": "off",
         "comma-dangle": ["error", {
             "arrays": "always-multiline",
