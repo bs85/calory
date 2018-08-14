@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@material-ui/core": "^1.5.0",
+        "@material-ui/icons": "^2.0.2",
         "autoprefixer": "7.1.6",
         "babel-core": "6.26.0",
         "babel-eslint": "7.2.3",
@@ -12,6 +14,7 @@
         "babel-runtime": "6.26.0",
         "case-sensitive-paths-webpack-plugin": "2.1.1",
         "chalk": "1.1.3",
+        "classnames": "^2.2.6",
         "css-loader": "0.28.7",
         "dotenv": "4.0.0",
         "dotenv-expand": "4.2.0",
@@ -25,10 +28,12 @@
         "eslint-plugin-react": "^7.9.1",
         "extract-text-webpack-plugin": "3.0.2",
         "file-loader": "1.1.5",
+        "formdata-polyfill": "^3.0.11",
         "fs-extra": "3.0.1",
         "html-webpack-plugin": "2.29.0",
         "immutable": "^3.8.2",
         "jest": "20.0.4",
+        "lodash": "^4.17.10",
         "object-assign": "4.1.1",
         "postcss-flexbugs-fixes": "3.2.0",
         "postcss-loader": "2.0.8",
@@ -39,7 +44,8 @@
         "react-dev-utils": "^5.0.1",
         "react-dom": "^16.4.2",
         "react-hot-loader": "^4.3.4",
-        "react-router": "^4.3.1",
+        "react-redux": "^5.0.7",
+        "react-router-dom": "^4.3.1",
         "redux": "^4.0.0",
         "reselect": "^3.0.1",
         "resolve": "1.6.0",
@@ -49,7 +55,7 @@
         "webpack": "3.8.1",
         "webpack-dev-server": "2.9.4",
         "webpack-manifest-plugin": "1.3.2",
-        "whatwg-fetch": "2.0.3"
+        "whatwg-fetch": "^2.0.4"
     },
     "scripts": {
         "start": "NODE_PATH=src node scripts/start.js",
