@@ -1,0 +1,1 @@
+../../../shared/forms/sign-up.js
