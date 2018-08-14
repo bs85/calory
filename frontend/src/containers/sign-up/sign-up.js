@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -36,6 +37,13 @@ import {
 } from 'forms/sign-up';
 
 const styles = (theme) => ({
+    paper: {
+        marginTop: theme.spacing.unit * 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    },
     avatar: {
         margin: theme.spacing.unit,
         backgroundColor: theme.palette.secondary.main,
@@ -177,64 +185,66 @@ class SignIn extends Component {
 
         return (
             <Layout>
-                <Avatar className={classes.avatar}>
-                    <Icon />
-                </Avatar>
-                <form className={classes.form} onSubmit={(event) => { event.preventDefault(); this.handleSubmit(); }}>
-                    { this.renderField({
-                        fieldName: FIELD_FIRSTNAME,
-                        inputProps: { autoFocus: true },
-                    })}
-                    { this.renderField({
-                        fieldName: FIELD_LASTNAME,
-                    })}
-                    { this.renderField({
-                        fieldName: FIELD_EMAIL,
-                        controlProps: { fullWidth: true },
-                    })}
-                    { this.renderField({
-                        fieldName: FIELD_PASSWORD,
-                        inputProps: { type: 'password' },
-                        controlProps: { fullWidth: true },
-                    })}
-                    { this.renderField({
-                        fieldName: FIELD_CONFIRM_PASSWORD,
-                        inputProps: { type: 'password' },
-                        controlProps: { fullWidth: true },
-                    })}
-                    { requestError ? <div className={classes.requestError}>{ requestError }</div> : null }
-                    <Button
-                        type="button"
-                        fullWidth
-                        variant="raised"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={() => this.handleSampleData()}
-                    >
-                        Dummy Data
-                    </Button>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="raised"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign up
-                    </Button>
-                    <Typography align="right" className={classes.joinNow}>
-                        Already a member?
+                <Paper className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <Icon />
+                    </Avatar>
+                    <form className={classes.form} onSubmit={(event) => { event.preventDefault(); this.handleSubmit(); }}>
+                        { this.renderField({
+                            fieldName: FIELD_FIRSTNAME,
+                            inputProps: { autoFocus: true },
+                        })}
+                        { this.renderField({
+                            fieldName: FIELD_LASTNAME,
+                        })}
+                        { this.renderField({
+                            fieldName: FIELD_EMAIL,
+                            controlProps: { fullWidth: true },
+                        })}
+                        { this.renderField({
+                            fieldName: FIELD_PASSWORD,
+                            inputProps: { type: 'password' },
+                            controlProps: { fullWidth: true },
+                        })}
+                        { this.renderField({
+                            fieldName: FIELD_CONFIRM_PASSWORD,
+                            inputProps: { type: 'password' },
+                            controlProps: { fullWidth: true },
+                        })}
+                        { requestError ? <div className={classes.requestError}>{ requestError }</div> : null }
                         <Button
-                            className={classes.joinNowButton}
-                            size="small"
                             type="button"
+                            fullWidth
+                            variant="raised"
                             color="primary"
-                            onClick={() => history.push('/sign-in')}
+                            className={classes.submit}
+                            onClick={() => this.handleSampleData()}
                         >
-                            Sign in
+                            Dummy Data
                         </Button>
-                    </Typography>
-                </form>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="raised"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign up
+                        </Button>
+                        <Typography align="right" className={classes.joinNow}>
+                            Already a member?
+                            <Button
+                                className={classes.joinNowButton}
+                                size="small"
+                                type="button"
+                                color="primary"
+                                onClick={() => history.push('/sign-in')}
+                            >
+                                Sign in
+                            </Button>
+                        </Typography>
+                    </form>
+                </Paper>
             </Layout>
         );
     }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = (theme) => ({
@@ -14,13 +13,6 @@ const styles = (theme) => ({
             marginRight: 'auto',
         },
     },
-    paper: {
-        marginTop: theme.spacing.unit * 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-    },
 });
 
 class SignIn extends Component {
@@ -31,9 +23,7 @@ class SignIn extends Component {
             <React.Fragment>
                 <CssBaseline />
                 <main className={classes.layout}>
-                    <Paper className={classes.paper}>
-                        { children }
-                    </Paper>
+                    { children }
                 </main>
             </React.Fragment>
         );
