@@ -1,5 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import _ from 'lodash';
+import mapValues from 'lodash.mapvalues';
+import thunk from 'redux-thunk';
 
 import reducers from 'store/reducers';
 
@@ -9,9 +10,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default () => (
     createStore(
         reducers,
-        _.mapValues(reducers, () => undefined),
+        mapValues(reducers, () => undefined),
         composeEnhancers(
-            applyMiddleware()
-        )
+            applyMiddleware(thunk),
+        ),
     )
 );

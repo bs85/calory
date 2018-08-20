@@ -1,9 +1,10 @@
 import {
     ACTION_SET_ACCOUNT,
-    ACTION_LOGOUT
+    ACTION_LOGOUT,
 } from './actions';
 
 const defaultState = {
+    userId: null,
     account: null,
 };
 
