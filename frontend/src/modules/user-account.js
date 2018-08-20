@@ -1,4 +1,8 @@
 const UserAccount = {
+    getId(account) {
+        return account.id;
+    },
+
     getDisplayName(account) {
         return UserAccount.getFirstname(account);
     },
@@ -20,7 +24,11 @@ const UserAccount = {
     },
 
     getRoleName(account) {
-        return account.role_name;
+        return account.roleName;
+    },
+
+    getCaloriesTarget(account) {
+        return account.caloriesTarget;
     },
 };
 
