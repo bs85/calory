@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import { Provider as HttpClientProvider } from 'components/http-client-provider';
 import Dashboard from 'containers/dashboard/dashboard';
 import History from 'containers/history/history';
 import SignIn from 'containers/sign-in/sign-in';
@@ -18,19 +19,21 @@ const requireLogin = (WrappedComponent) => () => (
 
 class App extends Component {
     render() {
-        const { store } = this.props;
+        const { history, store, httpClient } = this.props;
 
         return (
-            <Provider store={store}>
-                <BrowserRouter>
-                    <React.Fragment>
-                        <Route exact path="/" render={requireLogin(Dashboard)} />
-                        <Route path="/history" render={requireLogin(History)} />
-                        <Route path="/sign-in" component={SignIn} />
-                        <Route path="/sign-up" component={SignUp} />
-                    </React.Fragment>
-                </BrowserRouter>
-            </Provider>
+            <HttpClientProvider value={httpClient}>
+                <Provider store={store}>
+                    <Router history={history}>
+                        <React.Fragment>
+                            <Route exact path="/" render={requireLogin(Dashboard)} />
+                            <Route path="/history" render={requireLogin(History)} />
+                            <Route path="/sign-in" component={SignIn} />
+                            <Route path="/sign-up" component={SignUp} />
+                        </React.Fragment>
+                    </Router>
+                </Provider>
+            </HttpClientProvider>
         );
     }
 }
