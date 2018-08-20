@@ -13,6 +13,8 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
+const domains = require('../../config/domains.json');
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath;
@@ -239,6 +241,11 @@ module.exports = {
         // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
         // In production, it will be an empty string unless you specify "homepage"
         // in `package.json`, in which case it will be the pathname of that URL.
+        new webpack.DefinePlugin({
+            CONFIG: {
+                API_SERVER_URL: JSON.stringify(domains.apiServer),
+            },
+        }),
         new InterpolateHtmlPlugin(env.raw),
         // Generates an `index.html` file with the <script> injected.
         new HtmlWebpackPlugin({
@@ -329,6 +336,16 @@ module.exports = {
         // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
         // You can remove this if you don't use Moment.js:
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks(module) {
+                const { context } = module;
+
+                if (typeof context !== 'string') return false;
+
+                return context.indexOf('node_modules') !== -1;
+            },
+        }),
     ],
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
