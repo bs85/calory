@@ -31,8 +31,10 @@
         "react/forbid-prop-types": "off",
         "react/no-render-return-value": "off",
         "react/require-default-props": "warn",
+        "react/prop-types": "off",
         "jsx-a11y/label-has-for": "off",
         "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
         "strict": ["error", "global"],
         "max-len": "off",
         "no-param-reassign": "off",
@@ -40,7 +42,8 @@
         "new-cap": "off",
         "quote-props": "off",
         "import/no-extraneous-dependencies": "off",
-        "no-console": "off"
+        "no-console": "off",
+        "no-shadow": "off"
     },
     "env": {
         "es6": true,
@@ -51,7 +54,9 @@
     "plugins": [
         "react"
     ],
-    "globals": {},
+    "globals": {
+        "CONFIG"
+    },
     "parserOptions": {
         "sourceType": "module"
     },
