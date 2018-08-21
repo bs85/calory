@@ -20,14 +20,5 @@
         },
         "cors": false
     },
-    "json": {
-      "strict": false,
-      "limit": "100kb"
-    },
-    "urlencoded": {
-      "extended": true,
-      "limit": "100kb"
-    },
-    "cors": false
-  }
+    "cookieSecret": "signingishardthough!!!@*hsdbfhjebg"
 }
