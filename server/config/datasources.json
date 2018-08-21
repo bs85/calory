@@ -1,6 +1,12 @@
 {
   "db": {
+    "host": "/var/run/postgresql",
+    "port": 0,
+    "url": "",
+    "database": "calory",
+    "password": "",
     "name": "db",
-    "connector": "memory"
+    "user": "",
+    "connector": "postgresql"
   }
 }
