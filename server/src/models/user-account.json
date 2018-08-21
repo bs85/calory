@@ -1,0 +1,95 @@
+{
+  "name": "UserAccount",
+  "base": "User",
+  "mixins": {
+    "TimeStamp": {
+      "createdAt": "createdAt",
+      "updatedAt": "updatedAt",
+      "required": false,
+      "validateUpsert": true,
+      "silenceWarnings": false
+    },
+    "ReadOnly": {
+      "id": true,
+      "createdAt": true,
+      "updatedAt": true
+    }
+  },
+  "properties": {
+    "firstname": {
+      "type": "string",
+      "required": true
+    },
+    "lastname": {
+      "type": "string",
+      "required": true
+    },
+    "caloriesTarget": {
+      "type": "number",
+      "required": true,
+      "default": 2000
+    }
+  },
+  "validations": [],
+  "relations": {
+    "meals": {
+      "type": "hasMany",
+      "model": "Meal",
+      "foreignKey": "userId"
+    },
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "UserAccessToken",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
+    }
+  },
+  "methods": {
+    "prototype.mealsByDate": {
+      "accepts": {
+        "arg": "date",
+        "type": "date",
+        "required": true,
+        "http": {
+          "source": "query"
+        }
+      },
+      "returns": {
+        "arg": "meals",
+        "type": "array",
+        "root": true
+      },
+      "http": {
+        "verb": "post"
+      }
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__meals"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "mealsByDate"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__create__meals"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__updateById__meals"
+    }
+  ]
+}
