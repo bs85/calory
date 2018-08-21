@@ -33,7 +33,7 @@ boot(
             '../node_modules/loopback-ds-readonly-mixin/lib',
             '../node_modules/loopback-ds-timestamp-mixin',
         ],
-        bootDirs: [path.join(__dirname, '../boot')],
+        bootDirs: [path.join(__dirname, 'boot')],
     },
     (err) => {
         if (err) throw err;
