@@ -1,3 +1,6 @@
+import Typography from '@material-ui/core/Typography';
+
+import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -13,6 +16,9 @@ import Meal from 'modules/meal';
 import EditMeal from 'components/edit-meal';
 import DeleteMeal from 'components/delete-meal';
 import Modal from 'components/modal';
+import MealList from 'components/meal-list';
+import DayBreakdown from 'components/day-breakdown';
+import DateInput, { TYPE_DATE } from 'components/date-input';
 
 const getDayTotal = createSelector(
     (meals) => meals,
@@ -90,24 +96,41 @@ class App extends Component {
             content = (
                 <React.Fragment>
                     <Modal open={action === ACTION_EDIT_MEAL} onClose={() => this.setAction(null)}>
-                        <EditMeal done={this.handleMealUpdated} meal={actionPayload.meal} />
+                        <EditMeal
+                            done={this.handleMealUpdated}
+                            meal={actionPayload.meal}
+                            onClose={() => this.setAction(null)}
+                        />
                     </Modal>
                     <Modal open={action === ACTION_DELETE_MEAL} onClose={() => this.setAction(null)}>
-                        <DeleteMeal done={this.handleMealUpdated} meal={actionPayload.meal} />
+                        <DeleteMeal
+                            done={this.handleMealUpdated}
+                            meal={actionPayload.meal}
+                            onClose={() => this.setAction(null)}
+                        />
                     </Modal>
+                    <Typography>
+                        Your meals for&nbsp;
+                        <DateInput
+                            value={date}
+                            type={TYPE_DATE}
+                            onChange={this.handleChangeDate}
+                        />
+                    </Typography>
                     { meals.length === 0
                         ? (
                             <Notice>
-                                Click on the + icon in the menu to add meals you ate recently
+                                <Typography>Click on the + icon in the menu to add meals you ate recently</Typography>
                             </Notice>
                         )
                         : null }
-                    Dashboard Content
-                    <div>{ dayTotal } / { UserAccount.getCaloriesTarget(userAccount) }</div>
-                    { meals.map((meal) => (
-                        <pre onClick={() => this.handleEditMeal(meal)}>{ JSON.stringify(meal, null, '  ') }</pre>
-                    ))}
-                    { date.toISOString() }
+                    { meals.length ? <DayBreakdown meals={meals} caloriesTarget={UserAccount.getCaloriesTarget(userAccount)} /> : null }
+                    <MealList
+                        meals={meals}
+                        onEdit={this.handleEditMeal}
+                        onDelete={this.handleConfirmDeleteMeal}
+                        title={moment(date).format('dddd, MMM DD YYYY')}
+                    />
                 </React.Fragment>
             );
         }
