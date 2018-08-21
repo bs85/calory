@@ -8,7 +8,7 @@
     "scripts": {
         "lint": "eslint src",
         "start": "node .",
-        "db:init": "node scripts/migrate.js"
+        "db:init": "node ../scripts/migrate.js"
     },
     "dependencies": {
         "compression": "^1.0.3",
