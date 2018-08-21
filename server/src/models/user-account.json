@@ -90,6 +90,12 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "__updateById__meals"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__destroyById__meals"
     }
   ]
 }
