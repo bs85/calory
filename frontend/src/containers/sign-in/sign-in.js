@@ -1,3 +1,4 @@
+import mapValues from 'lodash.mapvalues';
 import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -12,15 +13,15 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { withHttpClient } from 'components/http-client-provider';
 import Layout from 'components/layout/credentials';
 import { setAccount } from 'store/user/actions';
+import { METHOD_USER_ACCOUNT_LOGIN, METHOD_USER_ACCOUNT_GET } from 'routes';
 
 import {
-    queryAPI,
-    ROUTE_SIGN_IN,
     NetworkError,
     AuthenticationError,
-} from 'lib/api';
+} from 'lib/http-client';
 
 import {
     PATH_RESET_PASSWORD,
@@ -31,7 +32,7 @@ import {
     FIELDS,
     FIELD_EMAIL,
     FIELD_PASSWORD,
-} from 'forms/sign-up';
+} from 'forms/sign-in';
 
 const styles = (theme) => ({
     paper: {
@@ -61,7 +62,7 @@ const styles = (theme) => ({
 
 class SignIn extends Component {
     state = {
-        form: _.mapValues(
+        form: mapValues(
             FIELDS,
             () => '',
         ),
@@ -69,16 +70,19 @@ class SignIn extends Component {
     }
 
     handleSubmit = async () => {
-        const { setAccount, history } = this.props;
+        const { setAccount, history, httpClient } = this.props;
         const { form } = this.state;
 
         try {
-            const result = await queryAPI(
-                ROUTE_SIGN_IN,
+            const { userId } = await httpClient.dispatch(
+                METHOD_USER_ACCOUNT_LOGIN,
                 form,
             );
 
-            const account = JSON.parse(result.body);
+            const account = await httpClient.dispatch(
+                METHOD_USER_ACCOUNT_GET,
+                userId,
+            );
 
             setAccount(account);
             history.push('/');
@@ -184,4 +188,4 @@ const mapDispatchToProps = (dispatch) => ({
     setAccount: (account) => dispatch(setAccount(account)),
 });
 
-export default withRouter(withStyles(styles)(connect(null, mapDispatchToProps)(SignIn)));
+export default withHttpClient(withRouter(withStyles(styles)(connect(null, mapDispatchToProps)(SignIn))));

@@ -9,21 +9,25 @@ import Icon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import _ from 'lodash';
+import mapValues from 'lodash.mapvalues';
 import React, { Component } from 'react';
 import validate from 'validate.js';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Layout from 'components/layout/credentials';
 import { setAccount } from 'store/user/actions';
+import { withHttpClient } from 'components/http-client-provider';
+import Layout from 'components/layout/credentials';
 
 import {
-    queryAPI,
-    ROUTE_SIGN_UP,
+    METHOD_USER_ACCOUNT_CREATE,
+    METHOD_USER_ACCOUNT_LOGIN,
+} from 'routes';
+
+import {
     NetworkError,
     AuthenticationError,
-} from 'lib/api';
+} from 'lib/http-client';
 
 import {
     FIELDS,
@@ -64,11 +68,11 @@ const styles = (theme) => ({
 
 class SignIn extends Component {
     state = {
-        form: _.mapValues(
+        form: mapValues(
             FIELDS,
             () => '',
         ),
-        touchedFields: _.mapValues(
+        touchedFields: mapValues(
             FIELDS,
             () => false,
         ),
@@ -77,7 +81,7 @@ class SignIn extends Component {
     }
 
     handleSubmit = async () => {
-        const { setAccount, history } = this.props;
+        const { setAccount, history, httpClient } = this.props;
         const { form } = this.state;
 
         const validationErrors = validate(form, RULES);
@@ -88,22 +92,31 @@ class SignIn extends Component {
         }
 
         try {
-            const result = await queryAPI(
-                ROUTE_SIGN_UP,
-                form,
+            const account = await httpClient.dispatch(
+                METHOD_USER_ACCOUNT_CREATE,
+                {
+                    ...form,
+                    caloriesTarget: 2000,
+                },
             );
 
-            const account = JSON.parse(result.body);
+            await httpClient.dispatch(
+                METHOD_USER_ACCOUNT_LOGIN,
+                {
+                    email: form.email,
+                    password: form.password,
+                },
+            );
 
             setAccount(account);
             history.push('/welcome');
-        } catch (requestError) {
-            if (requestError instanceof NetworkError) {
+        } catch (error) {
+            if (error instanceof NetworkError) {
                 this.setState({ requestError: 'Network requestError. Please try again' });
-            } else if (requestError instanceof AuthenticationError) {
+            } else if (error instanceof AuthenticationError) {
                 this.setState({ requestError: 'Invalid credentials' });
             } else {
-                this.setState({ requestError: requestError.message });
+                this.setState({ requestError: error.message });
             }
         }
     }
@@ -212,7 +225,7 @@ class SignIn extends Component {
                             controlProps: { fullWidth: true },
                         })}
                         { requestError ? <div className={classes.requestError}>{ requestError }</div> : null }
-                        <Button
+                        { /* <Button
                             type="button"
                             fullWidth
                             variant="raised"
@@ -221,7 +234,7 @@ class SignIn extends Component {
                             onClick={() => this.handleSampleData()}
                         >
                             Dummy Data
-                        </Button>
+                        </Button> */ }
                         <Button
                             type="submit"
                             fullWidth
@@ -254,4 +267,4 @@ const mapDispatchToProps = (dispatch) => ({
     setAccount: (account) => dispatch(setAccount(account)),
 });
 
-export default withRouter(withStyles(styles)(connect(null, mapDispatchToProps)(SignIn)));
+export default withHttpClient(withRouter(withStyles(styles)(connect(null, mapDispatchToProps)(SignIn))));
