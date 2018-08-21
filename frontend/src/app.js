@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 
 import { Provider as HttpClientProvider } from 'components/http-client-provider';
 import Dashboard from 'containers/dashboard/dashboard';
 import History from 'containers/history/history';
 import SignIn from 'containers/sign-in/sign-in';
 import SignUp from 'containers/sign-up/sign-up';
+import Welcome from 'containers/welcome/welcome';
+import Profile from 'containers/profile/profile';
 import RequireLogin from 'containers/require-login';
 
 import './app.css';
@@ -27,7 +29,10 @@ class App extends Component {
                     <Router history={history}>
                         <React.Fragment>
                             <Route exact path="/" render={requireLogin(Dashboard)} />
+                            <Route path="/dashboard" render={requireLogin(Dashboard)} />
                             <Route path="/history" render={requireLogin(History)} />
+                            <Route path="/welcome" render={requireLogin(Welcome)} />
+                            <Route path="/profile" render={requireLogin(Profile)} />
                             <Route path="/sign-in" component={SignIn} />
                             <Route path="/sign-up" component={SignUp} />
                         </React.Fragment>
