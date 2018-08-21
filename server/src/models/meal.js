@@ -16,14 +16,10 @@ module.exports = (Meal) => {
     });
 
     Meal.findByDate = function findByDate(date, userId, cb) {
-        const nextDay = new Date(date.valueOf());
-        nextDay.setDate(nextDay.getDate() + 1);
-
         return Meal.find({
             where: {
                 and: [
-                    { effectiveDate: { gte: `${date.toISOString().substr(0, 10)}` } },
-                    { effectiveDate: { lte: `${nextDay.toISOString().substr(0, 10)}` } },
+                    { effectiveDate: date },
                     { userId },
                 ],
             },
