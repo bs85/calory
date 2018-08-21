@@ -1,0 +1,46 @@
+{
+    "rules": {
+        "arrow-parens": ["error", "always"],
+        "class-methods-use-this": "off",
+        "comma-dangle": ["error", {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "exports": "always-multiline",
+            "functions": "always-multiline"
+        }],
+        "curly": ["error", "multi-line"],
+        "no-alert": "off",
+        "no-multi-spaces": ["error", {"exceptions": {"VariableDeclarator": true, "Property": true, "CallExpression": true}}],
+        "no-mixed-operators": "off",
+        "no-use-before-define": ["error", "nofunc"],
+        "no-unused-vars": ["error", {"argsIgnorePattern": "^_"}],
+        "no-restricted-globals": ["error", "Promise"],
+        "indent": ["error", 4, {"SwitchCase": 1}],
+        "key-spacing": ["error", {"beforeColon": false, "afterColon": true, "mode": "minimum"}],
+        "strict": ["error", "global"],
+        "max-len": "off",
+        "no-param-reassign": "off",
+        "no-plusplus": "off",
+        "new-cap": "off",
+        "quote-props": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-console": "off"
+    },
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": "airbnb-base",
+    "globals": {},
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
+        }
+    }
+}
