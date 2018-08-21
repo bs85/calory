@@ -5,36 +5,59 @@ import TimePicker from 'material-ui-pickers/TimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 
+import { getDateInstanceFromMinutes, getMinutesFromDateInstance } from 'lib/date-utils';
+
 export const TYPE_DATE = 'DATE';
 export const TYPE_TIME = 'TIME';
 export const TYPE_DATETIME = 'DATETIME';
 
 class DateInput extends PureComponent {
+    onChange = (date) => {
+        const { type, onChange } = this.props;
+
+        let value;
+        switch (type) {
+            case TYPE_TIME:
+                value = getMinutesFromDateInstance(date.toDate());
+                break;
+            default:
+                value = date;
+        }
+
+        onChange(value);
+    }
+
     render() {
         const {
             value,
-            onChange,
             type,
             label,
         } = this.props;
 
+        let date;
         let Component;
         switch (type) {
             case TYPE_DATETIME:
                 Component = DateTimePicker;
+                date = value;
                 break;
             case TYPE_TIME:
+                date = getDateInstanceFromMinutes(value);
                 Component = TimePicker;
                 break;
-            default:
+            case TYPE_DATE:
+                date = value;
                 Component = DatePicker;
+                break;
+            default:
+                throw new Error(`invalid type: ${type}`);
         }
 
         return (
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <Component
-                    value={value}
-                    onChange={onChange}
+                    value={date}
+                    onChange={this.onChange}
                     label={label}
                 />
             </MuiPickersUtilsProvider>

@@ -4,13 +4,17 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import Form from 'lib/form';
-import DateInput, { TYPE_DATETIME } from 'components/date-input';
+import DateInput, { TYPE_DATE, TYPE_TIME } from 'components/date-input';
 import { withHttpClient } from 'components/http-client-provider';
 import UserAccount from 'modules/user-account';
-import Meal from 'modules/meal';
 import { getUserAccount } from 'store/user/selector';
 import { setAccount } from 'store/user/actions';
 import { success } from 'store/notification/actions';
+import { getMinutesFromDateInstance, getCurrentEffectiveDate } from 'lib/date-utils';
+
+import Meal, {
+    CUTOFF_BREAKFAST,
+} from 'modules/meal';
 
 import {
     METHOD_MEAL_CREATE,
@@ -19,7 +23,8 @@ import {
 
 import {
     FIELD_DESCRIPTION,
-    FIELD_EATEN_AT,
+    FIELD_EFFECTIVE_DATE,
+    FIELD_TIME,
     FIELD_TOTAL_CALORIES,
     FIELDS,
     RULES,
@@ -38,7 +43,8 @@ class AddMeal extends React.Component {
                     /* eslint-disable-next-line react/destructuring-assignment */
                     ? this.props.meal
                     : {
-                        [FIELD_EATEN_AT]: new Date(),
+                        [FIELD_EFFECTIVE_DATE]: getCurrentEffectiveDate(new Date(), CUTOFF_BREAKFAST),
+                        [FIELD_TIME]: getMinutesFromDateInstance(new Date()),
                     }
             ),
             (form) => this.setState({ form }),
@@ -111,10 +117,17 @@ class AddMeal extends React.Component {
                         { disabled: saving },
                     )}
                     { form.renderField(
-                        FIELD_EATEN_AT,
+                        FIELD_EFFECTIVE_DATE,
                         true,
                         { fullWidth: true },
-                        { type: TYPE_DATETIME, disabled: saving },
+                        { type: TYPE_DATE, disabled: saving },
+                        DateInput,
+                    )}
+                    { form.renderField(
+                        FIELD_TIME,
+                        true,
+                        { fullWidth: true },
+                        { type: TYPE_TIME, disabled: saving },
                         DateInput,
                     )}
                     { error ? <div className={classes.error}>{ error }</div> : null }

@@ -116,10 +116,23 @@ export const METHODS = {
         verb: POST,
     }),
 
-    [METHOD_MEAL_CREATE]: (userId, { description, totalCalories, eatenAt }) => ({
+    [METHOD_MEAL_CREATE]: (
+        userId,
+        {
+            description,
+            totalCalories,
+            effectiveDate,
+            time,
+        }
+    ) => ({
         url: `${ENDPOINT_API}${MODEL_USER_ACCOUNT}/${userId}/${ACTION_USER_ACCOUNT_MEALS}`,
         verb: POST,
-        data: { description, totalCalories, eatenAt },
+        data: {
+            description,
+            totalCalories,
+            effectiveDate,
+            time,
+        },
     }),
 
     [METHOD_MEAL_UPDATE]: (
@@ -128,7 +141,8 @@ export const METHODS = {
         {
             description,
             totalCalories,
-            eatenAt,
+            effectiveDate,
+            time,
         },
     ) => ({
         url: `${ENDPOINT_API}${MODEL_USER_ACCOUNT}/${userId}/${ACTION_USER_ACCOUNT_MEALS}/${mealId}`,
@@ -136,7 +150,8 @@ export const METHODS = {
         data: {
             description,
             totalCalories,
-            eatenAt,
+            effectiveDate,
+            time,
         },
     }),
 

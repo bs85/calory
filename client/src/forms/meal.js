@@ -1,11 +1,20 @@
-export const FIELD_DESCRIPTION = 'description';
-export const FIELD_TOTAL_CALORIES = 'totalCalories';
-export const FIELD_EATEN_AT = 'eatenAt';
+import {
+    ATTR_DESCRIPTION,
+    ATTR_TOTAL_CALORIES,
+    ATTR_EFFECTIVE_DATE,
+    ATTR_TIME,
+} from 'modules/meal';
+
+export const FIELD_DESCRIPTION = ATTR_DESCRIPTION;
+export const FIELD_TOTAL_CALORIES = ATTR_TOTAL_CALORIES;
+export const FIELD_EFFECTIVE_DATE = ATTR_EFFECTIVE_DATE;
+export const FIELD_TIME = ATTR_TIME;
 
 export const FIELDS = {
     [FIELD_DESCRIPTION]: 'Description',
     [FIELD_TOTAL_CALORIES]: 'Total calories',
-    [FIELD_EATEN_AT]: 'Eaten at',
+    [FIELD_EFFECTIVE_DATE]: 'Date',
+    [FIELD_TIME]: 'Time',
 };
 
 export const RULES = {
@@ -18,7 +27,10 @@ export const RULES = {
             greaterThan: 0,
         },
     },
-    [FIELD_EATEN_AT]: {
+    [FIELD_EFFECTIVE_DATE]: {
+        presence: true,
+    },
+    [FIELD_TIME]: {
         presence: true,
     },
 };
