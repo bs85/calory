@@ -22,8 +22,8 @@ module.exports = (Meal) => {
         return Meal.find({
             where: {
                 and: [
-                    { eatenAt: { gte: `${date.toISOString().substr(0, 10)}T00:00:00` } },
-                    { eatenAt: { lte: `${nextDay.toISOString().substr(0, 10)}T00:00:00` } },
+                    { effectiveDate: { gte: `${date.toISOString().substr(0, 10)}` } },
+                    { effectiveDate: { lte: `${nextDay.toISOString().substr(0, 10)}` } },
                     { userId },
                 ],
             },
