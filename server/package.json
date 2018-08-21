@@ -20,16 +20,16 @@
         "loopback": "^3.19.0",
         "loopback-boot": "^2.6.5",
         "loopback-component-explorer": "^6.0.0",
-        "loopback-connector-postgresql": "^3.4.0",
+        "loopback-connector-postgresql": "https://github.com/bs85/loopback-connector-postgresql.git",
         "loopback-ds-readonly-mixin": "^2.0.4",
         "loopback-ds-timestamp-mixin": "^3.4.1",
         "serve-favicon": "^2.0.1",
         "strong-error-handler": "^3.0.0"
     },
     "devDependencies": {
-        "loopback-cli": "^4.2.0",
         "eslint": "^5.4.0",
-        "eslint-config-loopback": "^8.0.0"
+        "eslint-config-loopback": "^8.0.0",
+        "loopback-cli": "^4.2.0"
     },
     "repository": {
         "type": "",
