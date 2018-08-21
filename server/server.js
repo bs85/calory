@@ -29,7 +29,10 @@ boot(
             'loopback/server/models',
             path.join(__dirname, '../src/models'),
         ],
-        mixinSources: [],
+        mixinSources: [
+            '../node_modules/loopback-ds-readonly-mixin/lib',
+            '../node_modules/loopback-ds-timestamp-mixin',
+        ],
         bootDirs: [path.join(__dirname, '../boot')],
     },
     (err) => {
