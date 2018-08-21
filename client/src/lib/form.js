@@ -76,7 +76,7 @@ export default class Form {
                         value={data[fieldName] || ''}
                         name={fieldName}
                         label={fields[fieldName]}
-                        onChange={handleChange}
+                        onChange={(value) => handleChange(fieldName, value)}
                         {...inputProps}
                     />
                 </FormControl>
