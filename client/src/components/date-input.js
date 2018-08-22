@@ -22,10 +22,10 @@ class DateInput extends PureComponent {
         let value;
         switch (type) {
             case TYPE_TIME:
-                value = getMinutesFromDateInstance(date.toDate());
+                value = date ? getMinutesFromDateInstance(date.toDate()) : null;
                 break;
             case TYPE_DATE:
-                value = getDateFromDateInstance(date.toDate());
+                value = date ? getDateFromDateInstance(date.toDate()) : null;
                 break;
             default:
                 value = date;
@@ -66,6 +66,7 @@ class DateInput extends PureComponent {
                     value={date}
                     onChange={this.onChange}
                     label={label}
+                    clearable
                 />
             </MuiPickersUtilsProvider>
         );
