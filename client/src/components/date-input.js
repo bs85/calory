@@ -42,7 +42,7 @@ class DateInput extends PureComponent {
                 date = value;
                 break;
             case TYPE_TIME:
-                date = getDateInstanceFromMinutes(value);
+                date = value ? getDateInstanceFromMinutes(value) : value;
                 Component = TimePicker;
                 break;
             case TYPE_DATE:
