@@ -24,7 +24,7 @@ import {
 } from 'lib/http-client';
 
 import {
-    PATH_RESET_PASSWORD,
+    PATH_REQUEST_PASSWORD_RESET,
     PATH_SIGN_UP,
 } from 'constants/paths';
 

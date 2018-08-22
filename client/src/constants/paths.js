@@ -1,7 +1,9 @@
 export const PATH_ROOT = '/';
 export const PATH_SIGN_UP = '/sign-up';
+export const PATH_WELCOME = '/welcome';
 export const PATH_SIGN_IN = '/sign-in';
 export const PATH_RESET_PASSWORD = '/reset-password';
-export const PATH_DASHBOARD = PATH_ROOT;
+export const PATH_REQUEST_PASSWORD_RESET = '/request-password-reset';
+export const PATH_DASHBOARD = '/dashboard';
 export const PATH_PROFILE = '/profile';
 export const PATH_HISTORY = '/history';

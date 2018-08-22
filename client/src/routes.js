@@ -25,6 +25,8 @@ const DELETE = 'delete';
 
 export const ENDPOINT_API = 'api/';
 export const ENDPOINT_WHOAMI = 'whoami/';
+export const ENDPOINT_RESET_PASSWORD = 'reset-password/';
+export const ENDPOINT_REQUEST_PASSWORD_RESET = 'request-password-reset/';
 
 export const MODEL_USER_ACCOUNT = 'UserAccounts';
 export const MODEL_MEAL = 'Meals';
@@ -47,6 +49,8 @@ export const METHOD_USER_ACCOUNT_GET_MEALS_BY_DATE = 'METHOD_USER_ACCOUNT_GET_ME
 export const METHOD_USER_ACCOUNT_GET_MEALS_BY_DATERANGE_AND_TIMERANGE = 'METHOD_USER_ACCOUNT_GET_MEALS_BY_DATERANGE_AND_TIMERANGE';
 export const METHOD_USER_ACCOUNT_SAVE_PROFILE = 'METHOD_USER_ACCOUNT_SAVE_PROFILE';
 export const METHOD_USER_ACCOUNT_CHANGE_PASSWORD = 'METHOD_USER_ACCOUNT_CHANGE_PASSWORD';
+export const METHOD_USER_ACCOUNT_REQUEST_PASSWORD_RESET = 'METHOD_USER_ACCOUNT_REQUEST_PASSWORD_RESET';
+export const METHOD_USER_ACCOUNT_RESET_PASSWORD = 'METHOD_USER_ACCOUNT_RESET_PASSWORD';
 
 export const METHOD_MEAL_CREATE = 'METHOD_MEAL_CREATE';
 export const METHOD_MEAL_UPDATE = 'METHOD_MEAL_UPDATE';
@@ -114,6 +118,18 @@ export const METHODS = {
 
             throw error;
         },
+    }),
+
+    [METHOD_USER_ACCOUNT_REQUEST_PASSWORD_RESET]: ({ email }) => ({
+        url: `${ENDPOINT_REQUEST_PASSWORD_RESET}`,
+        verb: POST,
+        data: { email },
+    }),
+
+    [METHOD_USER_ACCOUNT_RESET_PASSWORD]: (accessToken, { password }) => ({
+        url: `${ENDPOINT_RESET_PASSWORD}?access_token=${accessToken}`,
+        verb: POST,
+        data: { password },
     }),
 
     [METHOD_USER_ACCOUNT_GET]: (id) => ({

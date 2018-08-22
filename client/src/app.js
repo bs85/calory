@@ -8,8 +8,22 @@ import History from 'containers/history/history';
 import SignIn from 'containers/sign-in/sign-in';
 import SignUp from 'containers/sign-up/sign-up';
 import Welcome from 'containers/welcome/welcome';
+import RequestPasswordReset from 'containers/request-password-reset';
+import ResetPassword from 'containers/reset-password/reset-password';
 import Profile from 'containers/profile/profile';
 import RequireLogin from 'containers/require-login';
+
+import {
+    PATH_ROOT,
+    PATH_SIGN_UP,
+    PATH_WELCOME,
+    PATH_SIGN_IN,
+    PATH_REQUEST_PASSWORD_RESET,
+    PATH_RESET_PASSWORD,
+    PATH_DASHBOARD,
+    PATH_PROFILE,
+    PATH_HISTORY,
+} from 'constants/paths';
 
 import './app.css';
 
@@ -28,13 +42,15 @@ class App extends Component {
                 <Provider store={store}>
                     <Router history={history}>
                         <React.Fragment>
-                            <Route exact path="/" render={requireLogin(Dashboard)} />
-                            <Route path="/dashboard" render={requireLogin(Dashboard)} />
-                            <Route path="/history" render={requireLogin(History)} />
-                            <Route path="/welcome" render={requireLogin(Welcome)} />
-                            <Route path="/profile" render={requireLogin(Profile)} />
-                            <Route path="/sign-in" component={SignIn} />
-                            <Route path="/sign-up" component={SignUp} />
+                            <Route exact path={PATH_ROOT} render={requireLogin(Dashboard)} />
+                            <Route path={PATH_DASHBOARD} render={requireLogin(Dashboard)} />
+                            <Route path={PATH_HISTORY} render={requireLogin(History)} />
+                            <Route path={PATH_WELCOME} render={requireLogin(Welcome)} />
+                            <Route path={PATH_PROFILE} render={requireLogin(Profile)} />
+                            <Route path={PATH_SIGN_IN} component={SignIn} />
+                            <Route path={PATH_SIGN_UP} component={SignUp} />
+                            <Route path={PATH_REQUEST_PASSWORD_RESET} component={RequestPasswordReset} />
+                            <Route path={PATH_RESET_PASSWORD} component={ResetPassword} />
                         </React.Fragment>
                     </Router>
                 </Provider>
