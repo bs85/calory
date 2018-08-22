@@ -137,6 +137,18 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "__destroyById__meals"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "manager",
+      "permission": "ALLOW",
+      "property": "*"
     }
   ]
 }
