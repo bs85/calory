@@ -52,3 +52,11 @@ export function getCurrentEffectiveDate(date, startOfDay) {
 
     return today;
 }
+
+export function getDateFromDateInstance(date) {
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+export function getTimestampFromDateInstance(date) {
+    return `${getDateFromDateInstance(date)}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}

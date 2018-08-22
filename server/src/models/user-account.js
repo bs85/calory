@@ -32,7 +32,6 @@ module.exports = (UserAccount) => {
         const config = { host: 'localhost', port: 3000 };
 
         const url = `http://${config.host}:${config.port}/reset-password`;
-        console.log(info);
         const html = `Click <a href="${url}?access_token=${info.accessToken.id}">here</a> to reset your password`;
 
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';

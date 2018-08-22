@@ -50,7 +50,7 @@
     "prototype.mealsByDate": {
       "accepts": {
         "arg": "date",
-        "type": "date",
+        "type": "string",
         "required": true,
         "http": {
           "source": "query"
@@ -68,13 +68,13 @@
     "prototype.mealsByDaterangeAndTimerange": {
       "accepts": [{
         "arg": "dateFrom",
-        "type": "date",
+        "type": "string",
         "http": {
           "source": "query"
         }
       }, {
         "arg": "dateTo",
-        "type": "date",
+        "type": "string",
         "http": {
           "source": "query"
         }

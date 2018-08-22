@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getTimestampFromDateInstance } from 'lib/date-utils';
+
 import { METHODS } from 'routes';
 
 export const ROUTE_SIGN_IN = '/auth';
@@ -86,6 +88,16 @@ export class HttpClient {
             data = null,
             onError,
         } = METHODS[method](...args);
+
+        if (data) {
+            Object.keys(data).forEach(
+                (key) => {
+                    if (data[key] instanceof Date) {
+                        data[key] = getTimestampFromDateInstance(data[key]);
+                    }
+                },
+            );
+        }
 
         switch (verb) {
             case GET:

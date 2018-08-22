@@ -5,7 +5,11 @@ import TimePicker from 'material-ui-pickers/TimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 
-import { getDateInstanceFromMinutes, getMinutesFromDateInstance } from 'lib/date-utils';
+import {
+    getDateInstanceFromMinutes,
+    getMinutesFromDateInstance,
+    getDateFromDateInstance,
+} from 'lib/date-utils';
 
 export const TYPE_DATE = 'DATE';
 export const TYPE_TIME = 'TIME';
@@ -19,6 +23,9 @@ class DateInput extends PureComponent {
         switch (type) {
             case TYPE_TIME:
                 value = getMinutesFromDateInstance(date.toDate());
+                break;
+            case TYPE_DATE:
+                value = getDateFromDateInstance(date.toDate());
                 break;
             default:
                 value = date;

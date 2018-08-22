@@ -7,7 +7,7 @@
     },
     "scripts": {
         "lint": "eslint src",
-        "start": "node .",
+        "start": "TZ=UTC node .",
         "db:init": "node ../scripts/migrate.js"
     },
     "dependencies": {
