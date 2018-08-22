@@ -1,8 +1,21 @@
 import get from 'lodash.get';
+import moment from 'moment';
 
 import {
     ValidationError,
 } from 'lib/http-client';
+
+function formatDate(date) {
+    return date
+        ? moment(date).format('YYYY-MM-DD')
+        : '';
+}
+
+function formatTime(time) {
+    return time === null
+        ? ''
+        : time;
+}
 
 const GET = 'get';
 const POST = 'post';
@@ -21,6 +34,7 @@ export const ACTION_USER_ACCOUNT_LOGOUT = 'logout';
 export const ACTION_USER_ACCOUNT_CHANGE_PASSWORD = 'change-password';
 export const ACTION_USER_ACCOUNT_MEALS = 'meals';
 export const ACTION_USER_ACCOUNT_MEALS_BY_DATE = 'mealsByDate';
+export const ACTION_USER_ACCOUNT_MEALS_BY_DATERANGE_AND_TIMERANGE = 'mealsByDaterangeAndTimerange';
 
 export const METHOD_WHOAMI = 'METHOD_WHOAMI';
 
@@ -30,6 +44,7 @@ export const METHOD_USER_ACCOUNT_LOGOUT = 'METHOD_USER_ACCOUNT_LOGOUT';
 export const METHOD_USER_ACCOUNT_GET = 'METHOD_USER_ACCOUNT_GET';
 export const METHOD_USER_ACCOUNT_GET_MEALS = 'METHOD_USER_ACCOUNT_GET_MEALS';
 export const METHOD_USER_ACCOUNT_GET_MEALS_BY_DATE = 'METHOD_USER_ACCOUNT_GET_MEALS_BY_DATE';
+export const METHOD_USER_ACCOUNT_GET_MEALS_BY_DATERANGE_AND_TIMERANGE = 'METHOD_USER_ACCOUNT_GET_MEALS_BY_DATERANGE_AND_TIMERANGE';
 export const METHOD_USER_ACCOUNT_SAVE_PROFILE = 'METHOD_USER_ACCOUNT_SAVE_PROFILE';
 export const METHOD_USER_ACCOUNT_CHANGE_PASSWORD = 'METHOD_USER_ACCOUNT_CHANGE_PASSWORD';
 
@@ -112,7 +127,12 @@ export const METHODS = {
     }),
 
     [METHOD_USER_ACCOUNT_GET_MEALS_BY_DATE]: (id, date) => ({
-        url: `${ENDPOINT_API}${MODEL_USER_ACCOUNT}/${id}/${ACTION_USER_ACCOUNT_MEALS_BY_DATE}?date=${date.toISOString().substr(0, 10)}`,
+        url: `${ENDPOINT_API}${MODEL_USER_ACCOUNT}/${id}/${ACTION_USER_ACCOUNT_MEALS_BY_DATE}?date=${formatDate(date)}`,
+        verb: POST,
+    }),
+
+    [METHOD_USER_ACCOUNT_GET_MEALS_BY_DATERANGE_AND_TIMERANGE]: (id, dateFrom, dateTo, timeFrom, timeTo) => ({
+        url: `${ENDPOINT_API}${MODEL_USER_ACCOUNT}/${id}/${ACTION_USER_ACCOUNT_MEALS_BY_DATERANGE_AND_TIMERANGE}?dateFrom=${formatDate(dateFrom)}&dateTo=${formatDate(dateTo)}&timeFrom=${formatTime(timeFrom)}&timeTo=${formatTime(timeTo)}`,
         verb: POST,
     }),
 
@@ -123,7 +143,7 @@ export const METHODS = {
             totalCalories,
             effectiveDate,
             time,
-        }
+        },
     ) => ({
         url: `${ENDPOINT_API}${MODEL_USER_ACCOUNT}/${userId}/${ACTION_USER_ACCOUNT_MEALS}`,
         verb: POST,

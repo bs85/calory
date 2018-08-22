@@ -25,6 +25,8 @@ export function getDateInstanceFromMinutes(timeInMinutes) {
 }
 
 export function getTimeFromMinutes(timeInMinutes) {
+    if (timeInMinutes === null) return null;
+
     const hours = Math.floor(timeInMinutes / 60);
     const minutes = timeInMinutes % 60;
 

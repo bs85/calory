@@ -69,3 +69,45 @@ export const getBreakdown = createSelector(
         );
     },
 );
+
+export const getTotal = createSelector(
+    (meals) => meals,
+    (meals) => meals.reduce(
+        (carry, meal) => carry + Meal.getTotalCalories(meal),
+        0,
+    ),
+);
+
+export const aggregateByDate = createSelector(
+    (meals) => meals,
+    (meals) => {
+        const mealsByDate = {};
+
+        meals.forEach((meal) => {
+            const date = Meal.getEffectiveDate(meal).substr(0, 10);
+
+            if (!mealsByDate[date]) {
+                mealsByDate[date] = [];
+            }
+
+            mealsByDate[date].push(meal);
+        });
+
+        const aggregated = Object.keys(mealsByDate).map(
+            (date) => {
+                const meals = mealsByDate[date];
+
+                return {
+                    date,
+                    totalCalories: getTotal(meals),
+                    description: meals.map((meal) => `${Meal.getDescription(meal)} [${Meal.getTotalCalories(meal)}]`).join(', '),
+                    time: null,
+                };
+            },
+        );
+
+        aggregated.sort((a, b) => a.date.localeCompare(b.date));
+
+        return aggregated;
+    },
+);

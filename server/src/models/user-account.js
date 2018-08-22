@@ -16,4 +16,10 @@ module.exports = (UserAccount) => {
 
         Meal.findByDate(date, this.id, cb);
     };
+
+    UserAccount.prototype.mealsByDaterangeAndTimerange = function mealsByDaterangeAndTimerange(dateFrom, dateTo, timeFrom, timeTo, cb) {
+        const { Meal } = UserAccount.app.models;
+
+        Meal.findByDaterangeAndTimerange(dateFrom, dateTo, timeFrom, timeTo, this.id, cb);
+    };
 };

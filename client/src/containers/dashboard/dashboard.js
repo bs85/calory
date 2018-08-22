@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 
 import Notice from 'components/widgets/notice';
 import { METHOD_USER_ACCOUNT_GET_MEALS_BY_DATE } from 'routes';
@@ -12,21 +11,13 @@ import { getUserAccount } from 'store/user/selector';
 import Layout from 'components/layout/main';
 import Loading from 'components/loading';
 import UserAccount from 'modules/user-account';
-import Meal from 'modules/meal';
+import { getTotal } from 'modules/meal';
 import EditMeal from 'components/edit-meal';
 import DeleteMeal from 'components/delete-meal';
 import Modal from 'components/modal';
 import MealList from 'components/meal-list';
 import DayBreakdown from 'components/day-breakdown';
 import DateInput, { TYPE_DATE } from 'components/date-input';
-
-const getDayTotal = createSelector(
-    (meals) => meals,
-    (meals) => meals.reduce(
-        (carry, meal) => carry + Meal.getTotalCalories(meal),
-        0,
-    ),
-);
 
 const ACTION_EDIT_MEAL = 'EDIT_MEAL';
 const ACTION_DELETE_MEAL = 'DELETE_MEAL';
@@ -91,7 +82,7 @@ class App extends Component {
         if (!userAccount || !meals) {
             content = <Loading />;
         } else {
-            const dayTotal = getDayTotal(meals);
+            const dayTotal = getTotal(meals);
 
             content = (
                 <React.Fragment>

@@ -23,9 +23,7 @@
     },
     "time": {
       "type": "number",
-      "required": true,
-      "max": 1440,
-      "min": 0
+      "required": true
     },
     "userId": {
       "type": "number",

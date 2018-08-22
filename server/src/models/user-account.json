@@ -64,6 +64,41 @@
       "http": {
         "verb": "post"
       }
+    },
+    "prototype.mealsByDaterangeAndTimerange": {
+      "accepts": [{
+        "arg": "dateFrom",
+        "type": "date",
+        "http": {
+          "source": "query"
+        }
+      }, {
+        "arg": "dateTo",
+        "type": "date",
+        "http": {
+          "source": "query"
+        }
+      }, {
+        "arg": "timeFrom",
+        "type": "number",
+        "http": {
+          "source": "query"
+        }
+      }, {
+        "arg": "timeTo",
+        "type": "number",
+        "http": {
+          "source": "query"
+        }
+      }],
+      "returns": {
+        "arg": "meals",
+        "type": "array",
+        "root": true
+      },
+      "http": {
+        "verb": "post"
+      }
     }
   },
   "acls": [
@@ -78,6 +113,12 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "mealsByDate"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "mealsByDaterangeAndTimerange"
     },
     {
       "principalType": "ROLE",
