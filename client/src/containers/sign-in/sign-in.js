@@ -145,7 +145,7 @@ class SignIn extends Component {
                         <Button
                             type="submit"
                             fullWidth
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             className={classes.submit}
                         >
@@ -172,7 +172,7 @@ class SignIn extends Component {
                         className={classes.joinNowButton}
                         fullWidth
                         type="button"
-                        variant="raised"
+                        variant="contained"
                         color="secondary"
                         onClick={() => history.push(PATH_SIGN_UP)}
                     >

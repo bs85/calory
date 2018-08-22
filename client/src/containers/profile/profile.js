@@ -164,7 +164,7 @@ class Profile extends Component {
                         { profileError ? <div className={classes.requestError}>{ profileError }</div> : null }
                         <Button
                             type="submit"
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             className={classes.submit}
                         >
@@ -199,7 +199,7 @@ class Profile extends Component {
                         { passwordError ? <div className={classes.error}>{ passwordError }</div> : null }
                         <Button
                             type="submit"
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             className={classes.submit}
                             disabled={passwordSaving || !passwordForm.isValid()}

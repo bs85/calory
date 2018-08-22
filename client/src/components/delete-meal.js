@@ -67,7 +67,7 @@ class DeleteMeal extends React.Component {
                     { error ? <div>{ error }</div> : null }
                     <Button
                         type="submit"
-                        variant="raised"
+                        variant="contained"
                         color="primary"
                         className={classes.submit}
                         disabled={saving}
@@ -76,7 +76,7 @@ class DeleteMeal extends React.Component {
                     </Button>
                     <Button
                         type="button"
-                        variant="raised"
+                        variant="contained"
                         color="secondary"
                         className={classes.submit}
                         disabled={saving}

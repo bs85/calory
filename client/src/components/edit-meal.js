@@ -133,7 +133,7 @@ class AddMeal extends React.Component {
                     { error ? <div className={classes.error}>{ error }</div> : null }
                     <Button
                         type="submit"
-                        variant="raised"
+                        variant="contained"
                         color="primary"
                         className={classes.submit}
                         disabled={saving || !form.isValid()}
