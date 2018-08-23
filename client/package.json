@@ -33,7 +33,7 @@
         "fs-extra": "3.0.1",
         "history": "^4.7.2",
         "html-webpack-plugin": "2.29.0",
-        "jest": "20.0.4",
+        "jest": "^23.5.0",
         "lodash.get": "^4.4.2",
         "lodash.mapvalues": "^4.6.0",
         "material-ui-pickers": "^1.0.0-rc.13",
@@ -70,6 +70,9 @@
         "lint": "eslint src"
     },
     "jest": {
+        "coverageReporters": [
+            "json", "html"
+        ],
         "collectCoverageFrom": [
             "src/**/*.{js,jsx,mjs}"
         ],

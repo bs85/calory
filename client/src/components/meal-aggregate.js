@@ -13,7 +13,6 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 import Meal from 'modules/meal';
-import { getTimeFromMinutes } from 'lib/date-utils';
 
 const styles = (theme) => ({
     root: {

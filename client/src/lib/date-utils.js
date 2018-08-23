@@ -25,8 +25,6 @@ export function getDateInstanceFromMinutes(timeInMinutes) {
 }
 
 export function getTimeFromMinutes(timeInMinutes) {
-    if (timeInMinutes === null) return null;
-
     const hours = Math.floor(timeInMinutes / 60);
     const minutes = timeInMinutes % 60;
 
@@ -37,26 +35,26 @@ export function getMinutesFromDateInstance(date) {
     return date.getHours() * 60 + date.getMinutes() * 1;
 }
 
-export function getCurrentEffectiveDate(date, startOfDay) {
-    if (typeof startOfDay === 'string') {
-        startOfDay = getMinutesFromTime(startOfDay);
-    }
-
-    const currentMinutes = getMinutesFromDateInstance(new Date());
-    const today = new Date();
-
-    // if the day start at 02:00 and it is 01:00, return yesterday
-    if (currentMinutes < startOfDay) {
-        today.setDate(today.getDate() - 1);
-    }
-
-    return today;
-}
-
 export function getDateFromDateInstance(date) {
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
 export function getTimestampFromDateInstance(date) {
     return `${getDateFromDateInstance(date)}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
+
+export function getEffectiveDate(startOfDay, today) {
+    if (typeof startOfDay === 'string') {
+        startOfDay = getMinutesFromTime(startOfDay);
+    }
+
+    const currentMinutes = getMinutesFromDateInstance(today);
+    const effectiveDate = new Date(today.valueOf());
+
+    // if the day start at 02:00 and it is 01:00, return yesterday
+    if (currentMinutes < startOfDay) {
+        effectiveDate.setDate(effectiveDate.getDate() - 1);
+    }
+
+    return effectiveDate;
 }

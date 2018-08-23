@@ -10,7 +10,7 @@ import UserAccount from 'modules/user-account';
 import { getUserAccount } from 'store/user/selector';
 import { setAccount } from 'store/user/actions';
 import { success } from 'store/notification/actions';
-import { getMinutesFromDateInstance, getCurrentEffectiveDate } from 'lib/date-utils';
+import { getMinutesFromDateInstance, getEffectiveDate } from 'lib/date-utils';
 
 import Meal, {
     CUTOFF_BREAKFAST,
@@ -43,7 +43,7 @@ class AddMeal extends React.Component {
                     /* eslint-disable-next-line react/destructuring-assignment */
                     ? this.props.meal
                     : {
-                        [FIELD_EFFECTIVE_DATE]: getCurrentEffectiveDate(new Date(), CUTOFF_BREAKFAST),
+                        [FIELD_EFFECTIVE_DATE]: getEffectiveDate(CUTOFF_BREAKFAST, new Date()),
                         [FIELD_TIME]: getMinutesFromDateInstance(new Date()),
                     }
             ),
