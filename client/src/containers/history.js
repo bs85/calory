@@ -8,7 +8,6 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { METHOD_USER_ACCOUNT_GET_MEALS_BY_DATERANGE_AND_TIMERANGE } from 'routes';
 import { withHttpClient } from 'components/http-client-provider';
 import { getUserAccount } from 'store/user/selector';
 import Layout from 'components/layout/main';
@@ -22,6 +21,10 @@ import DateInput, { TYPE_DATE, TYPE_TIME } from 'components/date-input';
 import { getMinutesFromTime } from 'lib/date-utils';
 
 import {
+    METHOD_USER_ACCOUNT_GET_MEALS_BY_DATERANGE_AND_TIMERANGE,
+} from 'routes';
+
+import {
     aggregateByDate,
     CUTOFF_BREAKFAST,
     CUTOFF_LUNCH,
@@ -30,6 +33,11 @@ import {
 
 const ACTION_EDIT_MEAL = 'EDIT_MEAL';
 const ACTION_DELETE_MEAL = 'DELETE_MEAL';
+
+const DATE_FROM = 'dateFrom';
+const DATE_TO = 'dateTo';
+const TIME_FROM = 'timeFrom';
+const TIME_TO = 'timeTo';
 
 const styles = () => ({
     presetButton: {
@@ -40,10 +48,10 @@ const styles = () => ({
 
 class History extends Component {
     state = {
-        dateFrom: moment().subtract(1, 'month'),
-        dateTo: moment(),
-        timeFrom: null,
-        timeTo: null,
+        [DATE_FROM]: moment().subtract(1, 'month'),
+        [DATE_TO]: moment(),
+        [TIME_FROM]: null,
+        [TIME_TO]: null,
         meals: null,
         action: null,
         actionPayload: {},
@@ -55,11 +63,12 @@ class History extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         [
-            'dateFrom',
-            'dateTo',
-            'timeFrom',
-            'timeTo',
+            DATE_FROM,
+            DATE_TO,
+            TIME_FROM,
+            TIME_TO,
         ].forEach((attribute) => {
+            // eslint-disable-next-line react/destructuring-assignment
             if (prevState[attribute] !== this.state[attribute]) {
                 this.fetchMeals();
             }
@@ -109,7 +118,7 @@ class History extends Component {
 
     handlePreset = (lowerBound, upperBound) => {
         this.setState({
-            timeFrom: lowerBound ? getMinutesFromTime(lowerBound) : null,
+            TIME_FROM: lowerBound ? getMinutesFromTime(lowerBound) : null,
             timeTo: upperBound ? getMinutesFromTime(upperBound) : null,
         });
     }
@@ -153,7 +162,7 @@ class History extends Component {
                                     <Typography>Date From</Typography>
                                     <DateInput
                                         value={dateFrom}
-                                        onChange={(date) => this.handleChangeDate('dateFrom', date)}
+                                        onChange={(date) => this.handleChangeDate(DATE_FROM, date)}
                                         type={TYPE_DATE}
                                     />
                                 </FormControl>
@@ -163,7 +172,7 @@ class History extends Component {
                                     <Typography>Date To</Typography>
                                     <DateInput
                                         value={dateTo}
-                                        onChange={(date) => this.handleChangeDate('dateTo', date)}
+                                        onChange={(date) => this.handleChangeDate(DATE_TO, date)}
                                         type={TYPE_DATE}
                                     />
                                 </FormControl>
@@ -173,7 +182,7 @@ class History extends Component {
                                     <Typography>Time From</Typography>
                                     <DateInput
                                         value={timeFrom}
-                                        onChange={(date) => this.handleChangeDate('timeFrom', date)}
+                                        onChange={(date) => this.handleChangeDate(TIME_FROM, date)}
                                         type={TYPE_TIME}
                                     />
                                 </FormControl>
@@ -183,7 +192,7 @@ class History extends Component {
                                     <Typography>Time To</Typography>
                                     <DateInput
                                         value={timeTo}
-                                        onChange={(date) => this.handleChangeDate('timeTo', date)}
+                                        onChange={(date) => this.handleChangeDate(TIME_TO, date)}
                                         type={TYPE_TIME}
                                     />
                                 </FormControl>

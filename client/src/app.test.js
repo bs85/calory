@@ -7,6 +7,7 @@ const TIMEOUT = 20000;
 let browser;
 let currentPage;
 
+// eslint-disable-next-line no-restricted-globals
 const wait = (ms) => new Promise(
     (resolve) => setTimeout(resolve, ms),
 );

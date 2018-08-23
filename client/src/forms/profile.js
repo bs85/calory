@@ -1,4 +1,8 @@
-export const FIELD_CALORIES_TARGET = 'caloriesTarget';
+import {
+    ATTR_CALORIES_TARGET,
+} from 'modules/user-account';
+
+export const FIELD_CALORIES_TARGET = ATTR_CALORIES_TARGET;
 
 export const FIELDS = {
     [FIELD_CALORIES_TARGET]: 'Target calories per day',

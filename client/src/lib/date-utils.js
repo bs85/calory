@@ -51,7 +51,7 @@ export function getEffectiveDate(startOfDay, today) {
     const currentMinutes = getMinutesFromDateInstance(today);
     const effectiveDate = new Date(today.valueOf());
 
-    // if the day start at 02:00 and it is 01:00, return yesterday
+    // if the day starts at 02:00 and it is 01:00, return yesterday
     if (currentMinutes < startOfDay) {
         effectiveDate.setDate(effectiveDate.getDate() - 1);
     }

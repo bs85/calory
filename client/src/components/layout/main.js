@@ -116,10 +116,9 @@ class MainLayout extends Component {
         mainMenuOpen: false,
         userMenuAnchor: null,
         action: null,
-        actionPayload: {},
     }
 
-    setAction = (action, actionPayload = {}) => this.setState({ action, actionPayload })
+    setAction = (action) => this.setState({ action })
 
     handleToggleMainMenu = (nextState) => {
         const { mainMenuOpen } = this.state;
@@ -170,7 +169,6 @@ class MainLayout extends Component {
             mainMenuOpen,
             userMenuAnchor,
             action,
-            actionPayload,
         } = this.state;
 
         return (

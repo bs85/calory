@@ -12,8 +12,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import Meal from 'modules/meal';
-
 const styles = (theme) => ({
     root: {
         width: '100%',
@@ -61,7 +59,7 @@ class MealAggregate extends Component {
                     </TableHead>
                     <TableBody>
                         { meals.map((meal) => (
-                            <TableRow key={Meal.getId(meal)}>
+                            <TableRow key={meal.id}>
                                 <TableCell>{moment(meal.date).format('ddd MMM DD YYYY')}</TableCell>
                                 <TableCell component="th" scope="row">
                                     {meal.description}

@@ -63,7 +63,7 @@ class RequestPasswordReset extends Component {
     }
 
     handleSubmit = async () => {
-        const { history, httpClient } = this.props;
+        const { httpClient } = this.props;
         const { form } = this.state;
 
         if (!form.isValid()) {

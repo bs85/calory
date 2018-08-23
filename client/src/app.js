@@ -3,15 +3,16 @@ import { Provider } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
 
 import { Provider as HttpClientProvider } from 'components/http-client-provider';
-import Dashboard from 'containers/dashboard/dashboard';
-import History from 'containers/history/history';
-import SignIn from 'containers/sign-in/sign-in';
-import SignUp from 'containers/sign-up/sign-up';
-import Welcome from 'containers/welcome/welcome';
-import RequestPasswordReset from 'containers/request-password-reset';
-import ResetPassword from 'containers/reset-password/reset-password';
-import Profile from 'containers/profile/profile';
 import RequireLogin from 'containers/require-login';
+
+import DashboardComponent from 'containers/dashboard';
+import HistoryComponent from 'containers/history';
+import SignInComponent from 'containers/sign-in';
+import SignUpComponent from 'containers/sign-up';
+import WelcomeComponent from 'containers/welcome';
+import RequestPasswordResetComponent from 'containers/request-password-reset';
+import ResetPasswordComponent from 'containers/reset-password';
+import ProfileComponent from 'containers/profile';
 
 import {
     PATH_ROOT,
@@ -42,15 +43,15 @@ class App extends Component {
                 <Provider store={store}>
                     <Router history={history}>
                         <React.Fragment>
-                            <Route exact path={PATH_ROOT} render={requireLogin(Dashboard)} />
-                            <Route path={PATH_DASHBOARD} render={requireLogin(Dashboard)} />
-                            <Route path={PATH_HISTORY} render={requireLogin(History)} />
-                            <Route path={PATH_WELCOME} render={requireLogin(Welcome)} />
-                            <Route path={PATH_PROFILE} render={requireLogin(Profile)} />
-                            <Route path={PATH_SIGN_IN} component={SignIn} />
-                            <Route path={PATH_SIGN_UP} component={SignUp} />
-                            <Route path={PATH_REQUEST_PASSWORD_RESET} component={RequestPasswordReset} />
-                            <Route path={PATH_RESET_PASSWORD} component={ResetPassword} />
+                            <Route path={PATH_ROOT} render={requireLogin(DashboardComponent)} exact />
+                            <Route path={PATH_DASHBOARD} render={requireLogin(DashboardComponent)} />
+                            <Route path={PATH_HISTORY} render={requireLogin(HistoryComponent)} />
+                            <Route path={PATH_WELCOME} render={requireLogin(WelcomeComponent)} />
+                            <Route path={PATH_PROFILE} render={requireLogin(ProfileComponent)} />
+                            <Route path={PATH_SIGN_IN} component={SignInComponent} />
+                            <Route path={PATH_SIGN_UP} component={SignUpComponent} />
+                            <Route path={PATH_REQUEST_PASSWORD_RESET} component={RequestPasswordResetComponent} />
+                            <Route path={PATH_RESET_PASSWORD} component={ResetPasswordComponent} />
                         </React.Fragment>
                     </Router>
                 </Provider>

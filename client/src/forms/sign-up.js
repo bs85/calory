@@ -1,7 +1,14 @@
-export const FIELD_FIRSTNAME = 'firstname';
-export const FIELD_LASTNAME = 'lastname';
-export const FIELD_EMAIL = 'email';
-export const FIELD_PASSWORD = 'password';
+import {
+    ATTR_FIRSTNAME,
+    ATTR_LASTNAME,
+    ATTR_EMAIL,
+    ATTR_PASSWORD,
+} from 'modules/user-account';
+
+export const FIELD_FIRSTNAME = ATTR_FIRSTNAME;
+export const FIELD_LASTNAME = ATTR_LASTNAME;
+export const FIELD_EMAIL = ATTR_EMAIL;
+export const FIELD_PASSWORD = ATTR_PASSWORD;
 export const FIELD_CONFIRM_PASSWORD = 'confirmPassword';
 
 export const FIELDS = {

@@ -11,7 +11,6 @@ import { getUserAccount } from 'store/user/selector';
 import Layout from 'components/layout/main';
 import Loading from 'components/loading';
 import UserAccount from 'modules/user-account';
-import { getTotal } from 'modules/meal';
 import EditMeal from 'components/edit-meal';
 import DeleteMeal from 'components/delete-meal';
 import Modal from 'components/modal';
@@ -76,14 +75,14 @@ class App extends Component {
 
     render() {
         const { userAccount } = this.props;
-        const { meals, date, action, actionPayload } = this.state;
+        const {
+            meals, date, action, actionPayload,
+        } = this.state;
 
         let content;
         if (!userAccount || !meals) {
             content = <Loading />;
         } else {
-            const dayTotal = getTotal(meals);
-
             content = (
                 <React.Fragment>
                     <Modal open={action === ACTION_EDIT_MEAL} onClose={() => this.setAction(null)}>

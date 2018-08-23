@@ -1,6 +1,19 @@
+export const ATTR_ID = 'id';
+export const ATTR_EMAIL = 'email';
+export const ATTR_PASSWORD = 'password';
+export const ATTR_FIRSTNAME = 'firstname';
+export const ATTR_LASTNAME = 'lastname';
+export const ATTR_USERNAME = 'username';
+export const ATTR_ROLE_NAME = 'roleName';
+export const ATTR_CALORIES_TARGET = 'caloriesTarget';
+
 const UserAccount = {
     getId(account) {
-        return account.id;
+        return account[ATTR_ID];
+    },
+
+    getEmail(account) {
+        return account[ATTR_EMAIL];
     },
 
     getDisplayName(account) {
@@ -8,11 +21,11 @@ const UserAccount = {
     },
 
     getFirstname(account) {
-        return account.firstname;
+        return account[ATTR_FIRSTNAME];
     },
 
     getLastname(account) {
-        return account.lastname;
+        return account[ATTR_LASTNAME];
     },
 
     getFullName(account) {
@@ -20,15 +33,15 @@ const UserAccount = {
     },
 
     getUsername(account) {
-        return account.username;
+        return account[ATTR_USERNAME];
     },
 
     getRoleName(account) {
-        return account.roleName;
+        return account[ATTR_ROLE_NAME];
     },
 
     getCaloriesTarget(account) {
-        return account.caloriesTarget;
+        return account[ATTR_CALORIES_TARGET];
     },
 };
 

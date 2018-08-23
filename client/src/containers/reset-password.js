@@ -62,7 +62,7 @@ class SignIn extends Component {
     }
 
     handleSubmit = async () => {
-        const { history, httpClient, location } = this.props;
+        const { httpClient, location } = this.props;
         const { form } = this.state;
 
         if (!form.isValid()) {

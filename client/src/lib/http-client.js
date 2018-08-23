@@ -1,9 +1,3 @@
-import axios from 'axios';
-
-import { getTimestampFromDateInstance } from 'lib/date-utils';
-
-import { METHODS } from 'routes';
-
 export const ROUTE_SIGN_IN = '/auth';
 export const ROUTE_SIGN_UP = '/subscribe';
 export const ROUTE_LOGOUT = '/logout';
@@ -32,18 +26,15 @@ const DELETE = 'delete';
 export const ROUTE_WHOAMI = 'whoami';
 
 export class HttpClient {
-    constructor(apiUrl) {
+    constructor(apiUrl, adapter, methods) {
         this.apiUrl = apiUrl;
-
-        this.client = axios.create({
-            baseURL: this.apiUrl,
-            withCredentials: true,
-        });
+        this.adapter = adapter;
+        this.methods = methods;
     }
 
     async attempt(verb, onError, ...args) {
         try {
-            const { data } = await this.client[verb](...args);
+            const { data } = await this.adapter[verb](...args);
             return data;
         } catch (error) {
             const { response } = error;
@@ -78,7 +69,7 @@ export class HttpClient {
     }
 
     dispatch(method, ...args) {
-        if (!METHODS[method]) {
+        if (!this.methods[method]) {
             throw new Error(`invalid method: ${method}`);
         }
 
@@ -87,17 +78,7 @@ export class HttpClient {
             url,
             data = null,
             onError,
-        } = METHODS[method](...args);
-
-        if (data) {
-            Object.keys(data).forEach(
-                (key) => {
-                    if (data[key] instanceof Date) {
-                        data[key] = getTimestampFromDateInstance(data[key]);
-                    }
-                },
-            );
-        }
+        } = this.methods[method](...args);
 
         switch (verb) {
             case GET:

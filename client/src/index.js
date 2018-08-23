@@ -1,14 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
+import axios from 'axios';
 
 import App from 'app';
 import Store from 'store/store';
 import { setAccount } from 'store/user/actions';
 import { HttpClient, AuthenticationError } from 'lib/http-client';
-import { METHOD_WHOAMI } from 'routes';
+import { METHODS, METHOD_WHOAMI } from 'routes';
+import Loading from 'components/loading';
 
-const httpClient = new HttpClient(CONFIG.API_SERVER_URL);
+const rootNode = document.getElementById('root');
+
+ReactDOM.render(<Loading />, rootNode);
+
+const httpAdapter = axios.create({
+    baseURL: this.apiUrl,
+    withCredentials: true,
+});
+
+const httpClient = new HttpClient(CONFIG.API_SERVER_URL, httpAdapter, METHODS);
 
 async function run() {
     const store = Store();
@@ -27,9 +38,8 @@ async function run() {
         }
     }
 
-    /* eslint-disable-next-line no-shadow */
     const render = () => ReactDOM.render(
-        <App history={history} store={store} httpClient={httpClient} />, document.getElementById('root'),
+        <App history={history} store={store} httpClient={httpClient} />, rootNode,
     );
 
     render();

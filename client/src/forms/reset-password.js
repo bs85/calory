@@ -1,4 +1,8 @@
-export const FIELD_PASSWORD = 'password';
+import {
+    ATTR_PASSWORD,
+} from 'modules/user-account';
+
+export const FIELD_PASSWORD = ATTR_PASSWORD;
 export const FIELD_CONFIRM_PASSWORD = 'confirmPassword';
 
 export const FIELDS = {
