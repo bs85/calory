@@ -109,8 +109,8 @@ class History extends Component {
 
     handlePreset = (lowerBound, upperBound) => {
         this.setState({
-            timeFrom: getMinutesFromTime(lowerBound),
-            timeTo: getMinutesFromTime(upperBound),
+            timeFrom: lowerBound ? getMinutesFromTime(lowerBound) : null,
+            timeTo: upperBound ? getMinutesFromTime(upperBound) : null,
         });
     }
 
@@ -213,6 +213,14 @@ class History extends Component {
                                 className={classes.presetButton}
                             >
                                 Dinner
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => this.handlePreset(null, null)}
+                                className={classes.presetButton}
+                            >
+                                Clear
                             </Button>
                         </div>
                     </form>
