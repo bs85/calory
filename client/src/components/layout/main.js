@@ -217,7 +217,7 @@ class MainLayout extends Component {
                             <Typography variant="title" color="inherit" noWrap className={classes.title}>
                                 { title }
                             </Typography>
-                            <IconButton color="inherit" onClick={() => this.handleAddMeal()}>
+                            <IconButton color="inherit" onClick={() => this.handleAddMeal()} id="add-meal">
                                 <AddIcon />
                             </IconButton>
                             <IconButton color="inherit" onClick={(event) => this.handleToggleUserMenu(event.currentTarget)}>

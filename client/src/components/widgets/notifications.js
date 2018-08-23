@@ -50,7 +50,7 @@ class Notifications extends Component {
         const { classes, notifications } = this.props;
 
         return (
-            <div className={classes.root}>
+            <div className={classes.root} id="notification">
                 { notifications.map(this.renderNotification) }
             </div>
         );
