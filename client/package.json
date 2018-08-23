@@ -20,6 +20,8 @@
         "css-loader": "0.28.7",
         "dotenv": "4.0.0",
         "dotenv-expand": "4.2.0",
+        "enzyme": "^3.4.4",
+        "enzyme-adapter-react-16": "^1.2.0",
         "eslint": "^4.19.1",
         "eslint-config-airbnb": "^17.0.0",
         "eslint-config-react-app": "^2.1.0",
@@ -66,12 +68,13 @@
     "scripts": {
         "start": "NODE_PATH=src node scripts/start.js",
         "build": "NODE_PATH=src node scripts/build.js",
-        "test": "node scripts/test.js --env=jsdom",
+        "test": "NODE_PATH=src node scripts/test.js --env=jsdom",
         "lint": "eslint src"
     },
     "jest": {
         "coverageReporters": [
-            "json", "html"
+            "json",
+            "html"
         ],
         "collectCoverageFrom": [
             "src/**/*.{js,jsx,mjs}"
@@ -104,7 +107,8 @@
             "jsx",
             "node",
             "mjs"
-        ]
+        ],
+        "setupTestFrameworkScriptFile": "<rootDir>src/setupTests.js"
     },
     "babel": {
         "presets": [

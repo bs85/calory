@@ -24,6 +24,8 @@ import {
     METHOD_USER_ACCOUNT_LOGIN,
 } from 'routes';
 
+import { PATH_SIGN_IN } from 'constants/paths';
+
 import {
     NetworkError,
     AuthenticationError,
@@ -251,7 +253,7 @@ class SignIn extends Component {
                                 size="small"
                                 type="button"
                                 color="primary"
-                                onClick={() => history.push('/sign-in')}
+                                onClick={() => history.push(PATH_SIGN_IN)}
                             >
                                 Sign in
                             </Button>

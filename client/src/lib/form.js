@@ -14,17 +14,12 @@ export default class Form {
         this.rules = rules;
         this.onChange = onChange;
 
-        this.reset();
+        this.reset(true);
         this.touchedFields = {};
     }
 
     handleChange = (field, value) => {
-        this.data = {
-            ...this.data,
-            [field]: value,
-        };
-
-        this.dispatchChanges();
+        this.set(field, value);
     }
 
     handleBlur = (field) => {
@@ -112,19 +107,17 @@ export default class Form {
     }
 
     dispatchChanges() {
-        if (this.onChange) {
-            window.setTimeout(() => this.onChange(this));
-        }
+        this.onChange(this);
     }
 
-    reset() {
+    reset(initial = false) {
         this.data = this.getInitialData
             ? { ...this.getInitialData() }
             : mapValues(this.fields, () => null);
 
         this.touchedFields = {};
 
-        this.dispatchChanges();
+        if (!initial) this.dispatchChanges();
     }
 
     getValidationErrors() {
@@ -137,6 +130,7 @@ export default class Form {
 
     set(fieldName, value) {
         this.data[fieldName] = value;
+        this.dispatchChanges();
     }
 
     get(fieldName) {

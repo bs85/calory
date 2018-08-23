@@ -1,10 +1,6 @@
-import mapValues from 'lodash.mapvalues';
 import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import Form from 'lib/form';
 import { withHttpClient } from 'components/http-client-provider';
 import Layout from 'components/layout/credentials';
 import { setAccount } from 'store/user/actions';
@@ -30,6 +27,7 @@ import {
 
 import {
     FIELDS,
+    RULES,
     FIELD_EMAIL,
     FIELD_PASSWORD,
 } from 'forms/sign-in';
@@ -60,11 +58,13 @@ const styles = (theme) => ({
     },
 });
 
-class SignIn extends Component {
+export class SignIn extends Component {
     state = {
-        form: mapValues(
+        form: new Form(
             FIELDS,
-            () => '',
+            RULES,
+            () => ({}),
+            (form) => this.setState(form),
         ),
         requestError: null,
     }
@@ -73,10 +73,14 @@ class SignIn extends Component {
         const { setAccount, history, httpClient } = this.props;
         const { form } = this.state;
 
+        if (!form.isValid) {
+            return;
+        }
+
         try {
             const { userId } = await httpClient.dispatch(
                 METHOD_USER_ACCOUNT_LOGIN,
-                form,
+                form.getData(),
             );
 
             const account = await httpClient.dispatch(
@@ -97,17 +101,6 @@ class SignIn extends Component {
         }
     }
 
-    handleFieldChange = (fieldName, value) => {
-        const { form } = this.state;
-
-        this.setState({
-            form: {
-                ...form,
-                [fieldName]: value,
-            },
-        });
-    }
-
     render() {
         const { classes, history } = this.props;
         const { form, requestError } = this.state;
@@ -119,28 +112,18 @@ class SignIn extends Component {
                         <LockIcon />
                     </Avatar>
                     <form className={classes.form} onSubmit={(event) => { event.preventDefault(); this.handleSubmit(); }}>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor={FIELD_EMAIL}>{FIELDS[FIELD_EMAIL]}</InputLabel>
-                            <Input
-                                id={FIELD_EMAIL}
-                                value={form[FIELD_EMAIL]}
-                                name={FIELD_EMAIL}
-                                autoComplete={FIELD_EMAIL}
-                                autoFocus
-                                onChange={(event) => this.handleFieldChange(FIELD_EMAIL, event.target.value)}
-                            />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor={FIELD_PASSWORD}>{FIELDS[FIELD_PASSWORD]}</InputLabel>
-                            <Input
-                                name={FIELD_PASSWORD}
-                                value={form[FIELD_PASSWORD]}
-                                type={FIELD_PASSWORD}
-                                id={FIELD_PASSWORD}
-                                autoComplete={FIELD_PASSWORD}
-                                onChange={(event) => this.handleFieldChange(FIELD_PASSWORD, event.target.value)}
-                            />
-                        </FormControl>
+                        { form.renderField(
+                            FIELD_EMAIL,
+                            true,
+                            { fullWidth: true },
+                            { autoFocus: true },
+                        )}
+                        { form.renderField(
+                            FIELD_PASSWORD,
+                            true,
+                            { fullWidth: true },
+                            { type: 'password' },
+                        )}
                         { requestError ? <div className={classes.error}>{ requestError }</div> : null }
                         <Button
                             type="submit"
@@ -148,6 +131,7 @@ class SignIn extends Component {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={!form.isValid()}
                         >
                             Sign in
                         </Button>
@@ -157,7 +141,7 @@ class SignIn extends Component {
                                 size="small"
                                 type="button"
                                 color="primary"
-                                onClick={() => history.push(PATH_RESET_PASSWORD)}
+                                onClick={() => history.push(PATH_REQUEST_PASSWORD_RESET)}
                             >
                                 Reset password
                             </Button>
