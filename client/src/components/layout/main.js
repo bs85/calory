@@ -30,7 +30,7 @@ import Modal from 'components/modal';
 import EditMeal from 'components/edit-meal';
 import { PATH_SIGN_IN } from 'constants/paths';
 import MenuItems from 'components/menu';
-import Notifications from 'components/widgets/notifications';
+import Notifications from 'components/notifications';
 import { logout } from 'store/user/actions';
 import { dismiss } from 'store/notification/actions';
 import { getNotifications } from 'store/notification/selector';

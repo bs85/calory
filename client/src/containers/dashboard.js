@@ -4,7 +4,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Notice from 'components/widgets/notice';
+import Notice from 'components/notice';
 import { METHOD_USER_ACCOUNT_GET_MEALS_BY_DATE } from 'routes';
 import { withHttpClient } from 'components/http-client-provider';
 import { getUserAccount } from 'store/user/selector';
